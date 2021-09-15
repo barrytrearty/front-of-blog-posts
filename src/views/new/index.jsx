@@ -20,9 +20,20 @@ export default class NewBlogPost extends Component {
       let response = await fetch("http://localhost:3001/blogPosts", {
         method: "POST",
         body: JSON.stringify({
-          text: this.state.text,
-          title: this.state.title,
           category: this.state.category,
+          title: this.state.title,
+          cover:
+            "https://coursereport-production.imgix.net/uploads/school/logo/1045/original/Strive_-_logosquareblack.png?w=200&h=200&dpr=1&q=75",
+          readTime: {
+            value: 2,
+            unit: "minute",
+          },
+          author: {
+            name: "Barry Trearty",
+            avatar:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdeN66zWGCjZ1UGlTL-QZTEI_DL5d8ccAxw&usqp=CAU",
+          },
+          content: this.state.text,
         }),
         headers: {
           "Content-Type": "application/json",
