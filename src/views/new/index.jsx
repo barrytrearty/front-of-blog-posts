@@ -6,25 +6,61 @@ import "./styles.css";
 export default class NewBlogPost extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "" };
+    this.state = { text: "", title: "", category: "" };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(value) {
     this.setState({ text: value });
+    console.log(this.state);
   }
+
+  createBlogPost = async () => {
+    try {
+      let response = await fetch("http://localhost:3001/blogPosts", {
+        method: "POST",
+        body: JSON.stringify({
+          text: this.state.text,
+          title: this.state.title,
+          category: this.state.category,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        console.log(response.json());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  sendBlogPost = (e) => {
+    e.preventDefault();
+    this.createBlogPost();
+  };
 
   render() {
     return (
       <Container className="new-blog-container">
-        <Form className="mt-5">
+        <Form className="mt-5" onSubmit={this.sendBlogPost}>
           <Form.Group controlId="blog-form" className="mt-3">
             <Form.Label>Title</Form.Label>
-            <Form.Control size="lg" placeholder="Title" />
+            <Form.Control
+              size="lg"
+              placeholder="Title"
+              // value={this.state.title}
+              onChange={(e) => this.setState({ title: e.target.value })}
+            />
           </Form.Group>
           <Form.Group controlId="blog-category" className="mt-3">
             <Form.Label>Category</Form.Label>
-            <Form.Control size="lg" as="select">
+            <Form.Control
+              size="lg"
+              as="select"
+              onChange={(e) => this.setState({ category: e.target.value })}
+            >
               <option>Category1</option>
               <option>Category2</option>
               <option>Category3</option>
