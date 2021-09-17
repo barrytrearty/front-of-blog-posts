@@ -25,13 +25,6 @@ class Blog extends Component {
     const { id } = this.props.match.params;
     this.fetchPosts(id);
     console.log(this.state.blog);
-    // const blog = this.state.posts.find((post) => post._id === id);
-    // if (blog) {
-    //   this.setState({ blog, loading: false });
-    // }
-    //  else {
-    //   this.props.history.push("/404");
-    // }
   }
 
   render() {

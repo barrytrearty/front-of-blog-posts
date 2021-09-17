@@ -52,6 +52,10 @@ export default class NewBlogPost extends Component {
     this.createBlogPost();
   };
 
+  // imageUpload = (e) => {
+  //   this.setState({ imageFile: e.target.files[0] });
+  // };
+
   render() {
     return (
       <Container className="new-blog-container">
