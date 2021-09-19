@@ -51,6 +51,7 @@ const Blog = ({ match }) => {
 
   const submitForm = (e) => {
     e.preventDefault();
+    console.log(`file ${{ file }}`);
     const fileFormData = new FormData();
     fileFormData.append("blogPostCover", file);
     console.log(fileFormData);
@@ -63,13 +64,15 @@ const Blog = ({ match }) => {
             body: fileFormData,
           }
         );
-        console.log(fileFormData.blogPostCover);
+        fetchPosts(id);
+        // console.log(fileFormData.blogPostCover);
       } catch (error) {
         console.log(error);
       }
     };
     uploadCover(id);
     console.log("postPhoto");
+    setOpen(false);
   };
 
   // const { loading, blog } = state;
@@ -121,10 +124,13 @@ const Blog = ({ match }) => {
                 <Form.Label>Choose</Form.Label>
                 <Form.Control
                   onChange={(e) => {
-                    const photo = e.target.files[0];
-                    setFile(photo);
+                    const file = e.target.files[0];
+                    console.log(`Number 1 ${e.target}`);
+                    console.log(e.target.files);
+                    console.log(file);
+                    setFile(file);
                   }}
-                  // accept="video/*"
+                  accept="image/*"
                   type="file"
                   placeholder="Photo"
                   required
@@ -148,6 +154,6 @@ const Blog = ({ match }) => {
   );
 };
 //   }
-// }
+//
 
 export default withRouter(Blog);
