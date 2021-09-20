@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Image, Button, Modal, Form } from "react-bootstrap";
+import {
+  Container,
+  Image,
+  Button,
+  Modal,
+  Form,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 // import posts from "../../data/posts.json";
@@ -12,6 +21,8 @@ const Blog = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState({ text: "", userName: "" });
 
   // const formData = new FormData();
   // formData.append("photo", file);
@@ -23,6 +34,21 @@ const Blog = ({ match }) => {
       setBlog(blogItem);
       setLoading(false);
       return blogItem;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchComments = async (id) => {
+    try {
+      let response = await fetch(
+        `http://localhost:3001/blogPosts/${id}/comments`
+      );
+      let blogComments = await response.json();
+      setComments(blogComments);
+      // setLoading(false);
+      console.log(blogComments);
+      return blogComments;
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +72,7 @@ const Blog = ({ match }) => {
     // const { id } = match.params;
     console.log(id);
     fetchPosts(id);
+    fetchComments(id);
     console.log(blog);
   }, []);
 
@@ -82,29 +109,62 @@ const Blog = ({ match }) => {
   return (
     <div className="blog-details-root">
       <Container>
-        <Image className="blog-details-cover" src={blog.cover} fluid />
-        <h1 className="blog-details-title">{blog.title}</h1>
+        <Row>
+          <Col className="col-9">
+            <Image className="blog-details-cover" src={blog.cover} fluid />
+            <h1 className="blog-details-title">{blog.title}</h1>
 
-        <div className="blog-details-container">
-          <div className="blog-details-author">
-            <BlogAuthor {...blog.author} />
-          </div>
-          <div className="blog-details-info">
-            <div>{blog.createdAt}</div>
-            {/* <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div> */}
-          </div>
-        </div>
+            <div className="blog-details-container">
+              <div className="blog-details-author">
+                <BlogAuthor {...blog.author} />
+              </div>
+              <div className="blog-details-info">
+                <div>{blog.createdAt}</div>
+                {/* <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div> */}
+              </div>
+            </div>
 
-        <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
-        <Button
-          onClick={() => setOpen(true)}
-          size="lg"
-          variant="dark"
-          style={{ margin: "1em" }}
-        >
-          {" "}
-          Upload Cover
-        </Button>
+            <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+            <Button
+              onClick={() => setOpen(true)}
+              size="lg"
+              variant="dark"
+              style={{ margin: "1em" }}
+            >
+              {" "}
+              Upload Cover
+            </Button>
+          </Col>
+          <Col className="col-3">
+            <div className="mt-5">
+              <Card body>
+                <h4>Comments</h4>
+              </Card>
+              {comments.map((comment) => (
+                <Card body key={comment.userName}>
+                  <h5>{comment.userName}</h5> {comment.text}
+                </Card>
+              ))}
+              <Form>
+                <Form.Group>
+                  <Form.Label>Leave a comment</Form.Label>
+                  <textarea
+                    name="text"
+                    id="text"
+                    cols="auto"
+                    rows="2"
+                  ></textarea>
+                  <Form.Control
+                    size="auto"
+                    placeholder="Title"
+                    onChange={(e) => setNewComment({ title: e.target.value })}
+                  />
+                </Form.Group>
+              </Form>
+            </div>
+          </Col>
+        </Row>
+
         <Modal
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
