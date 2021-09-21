@@ -13,7 +13,7 @@ export default class NewAuthor extends Component {
 
   getAuthorList = async () => {
     try {
-      let response = await fetch("http://localhost:3001/authors");
+      let response = await fetch(`${this.apiUrl}/authors`);
       let authorsList = await response.json();
       this.setState({ authors: authorsList });
       console.log(this.state.authors);
@@ -25,7 +25,7 @@ export default class NewAuthor extends Component {
 
   createAuthor = async () => {
     try {
-      let response = await fetch("http://localhost:3001/authors", {
+      let response = await fetch(`${this.apiUrl}/authors`, {
         method: "POST",
         body: JSON.stringify({
           name: this.state.name,
