@@ -7,13 +7,9 @@ export default class NewAuthor extends Component {
   constructor(props) {
     super(props);
     this.state = { name: "", surname: "", email: "", authors: [] };
-    // this.handleChange = this.handleChange.bind(this);
   }
 
-  //   handleChange(value) {
-  //     this.setState({ text: value });
-  //     console.log(this.state);
-  //   }
+  apiUrl = process.env.REACT_APP_BE_URL;
 
   getAuthorList = async () => {
     try {

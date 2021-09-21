@@ -6,9 +6,11 @@ import BlogItem from "../blog-item";
 export default class BlogList extends Component {
   state = { posts: [] };
 
+  apiUrl = process.env.REACT_APP_BE_URL;
+
   fetchPosts = async () => {
     try {
-      let response = await fetch("http://localhost:3001/blogPosts");
+      let response = await fetch(`${this.apiUrl}/blogPosts`);
       let postsArray = await response.json();
       this.setState({ posts: postsArray });
       return postsArray;

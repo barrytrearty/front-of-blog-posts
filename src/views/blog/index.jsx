@@ -14,6 +14,8 @@ import BlogAuthor from "../../components/blog/blog-author";
 // import posts from "../../data/posts.json";
 import "./styles.css";
 
+const apiUrl = process.env.REACT_APP_BE_URL;
+
 const Blog = ({ match }) => {
   const { id } = match.params;
 
@@ -29,7 +31,7 @@ const Blog = ({ match }) => {
 
   const fetchPosts = async (id) => {
     try {
-      let response = await fetch(`http://localhost:3001/blogPosts/${id}`);
+      let response = await fetch(`${apiUrl}/blogPosts/${id}`);
       let blogItem = await response.json();
       setBlog(blogItem);
       setLoading(false);
@@ -41,9 +43,7 @@ const Blog = ({ match }) => {
 
   const fetchComments = async (id) => {
     try {
-      let response = await fetch(
-        `http://localhost:3001/blogPosts/${id}/comments`
-      );
+      let response = await fetch(`${apiUrl}/blogPosts/${id}/comments`);
       let blogComments = await response.json();
       setComments(blogComments);
       // setLoading(false);
@@ -84,13 +84,10 @@ const Blog = ({ match }) => {
     console.log(fileFormData);
     const uploadCover = async (id) => {
       try {
-        let response = await fetch(
-          `http://localhost:3001/blogPosts/${id}/uploadCover`,
-          {
-            method: "PUT",
-            body: fileFormData,
-          }
-        );
+        let response = await fetch(`${apiUrl}/blogPosts/${id}/uploadCover`, {
+          method: "PUT",
+          body: fileFormData,
+        });
         fetchPosts(id);
         // console.log(fileFormData.blogPostCover);
       } catch (error) {
