@@ -54,19 +54,15 @@ const Blog = ({ match }) => {
     }
   };
 
-  // const uploadCover = async (id) => {
-  //   try {
-  //     let response = await fetch(
-  //       `http://localhost:3001/blogPosts/${id}/uploadCover`,
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const downloadPdf = async (id) => {
+    try {
+      let response = await fetch(`${apiUrl}/blogPosts/${id}/PDFDownload`);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     // const { id } = match.params;
@@ -130,6 +126,15 @@ const Blog = ({ match }) => {
             >
               {" "}
               Upload Cover
+            </Button>
+            <Button
+              onClick={() => downloadPdf()}
+              size="lg"
+              variant="dark"
+              style={{ margin: "1em" }}
+            >
+              {" "}
+              Download PDF
             </Button>
           </Col>
           <Col className="col-3">
