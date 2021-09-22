@@ -128,7 +128,7 @@ const Blog = ({ match }) => {
             </Button>
             <div>
               Download as PDF{" "}
-              <a href={`${apiUrl}/blog/${id}/PDFDownload`} target="_blank">
+              <a href={`${apiUrl}/blogPosts/${id}/PDFDownload`} target="_blank">
                 here
               </a>
             </div>
