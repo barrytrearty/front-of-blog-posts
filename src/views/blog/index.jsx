@@ -54,7 +54,7 @@ const Blog = ({ match }) => {
     }
   };
 
-  const downloadPdf = async (id) => {
+  const downloadPdf = async () => {
     try {
       let response = await fetch(`${apiUrl}/blogPosts/${id}/PDFDownload`);
       console.log(response);
