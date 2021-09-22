@@ -54,15 +54,15 @@ const Blog = ({ match }) => {
     }
   };
 
-  const downloadPdf = async () => {
-    try {
-      let response = await fetch(`${apiUrl}/blogPosts/${id}/PDFDownload`);
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const downloadPdf = async () => {
+  //   try {
+  //     let response = await fetch(`${apiUrl}/blogPosts/${id}/PDFDownload`);
+  //     console.log(response);
+  //     return response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     // const { id } = match.params;
@@ -124,10 +124,15 @@ const Blog = ({ match }) => {
               variant="dark"
               style={{ margin: "1em" }}
             >
-              {" "}
               Upload Cover
             </Button>
-            <Button
+            <div>
+              Download as PDF{" "}
+              <a href={`${apiUrl}/blog/${id}/PDFDownload`} target="_blank">
+                here
+              </a>
+            </div>
+            {/* <Button
               onClick={() => downloadPdf()}
               size="lg"
               variant="dark"
@@ -135,7 +140,7 @@ const Blog = ({ match }) => {
             >
               {" "}
               Download PDF
-            </Button>
+            </Button> */}
           </Col>
           <Col className="col-3">
             <div className="mt-5">
