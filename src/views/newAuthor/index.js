@@ -6,7 +6,13 @@ import "./styles.css";
 export default class NewAuthor extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", surname: "", email: "", authors: [] };
+    this.state = {
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+      authors: [],
+    };
   }
 
   apiUrl = process.env.REACT_APP_BE_URL;
@@ -31,6 +37,7 @@ export default class NewAuthor extends Component {
           name: this.state.name,
           surname: this.state.surname,
           email: this.state.email,
+          password: this.state.password,
           avatar:
             "https://coursereport-production.imgix.net/uploads/school/logo/1045/original/Strive_-_logosquareblack.png?w=200&h=200&dpr=1&q=75",
         }),
@@ -94,6 +101,14 @@ export default class NewAuthor extends Component {
                   size="lg"
                   placeholder="Email"
                   onChange={(e) => this.setState({ email: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="blog-form" className="mt-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  size="lg"
+                  placeholder="Password"
+                  onChange={(e) => this.setState({ password: e.target.value })}
                 />
               </Form.Group>
 
