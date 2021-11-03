@@ -14,8 +14,10 @@ export default class NewAuthor extends Component {
       authors: [],
     };
   }
-
+  // apiUrl = "http://localhost:5000";
   apiUrl = process.env.REACT_APP_BE_URL;
+
+  //REACT_APP_BE_URL=https://striveblogbt.herokuapp.com
 
   getAuthorList = async () => {
     try {
@@ -23,6 +25,7 @@ export default class NewAuthor extends Component {
       let authorsList = await response.json();
       this.setState({ authors: authorsList });
       console.log(this.state.authors);
+      console.log(this.apiUrl);
       return authorsList;
     } catch (error) {
       console.log(error);

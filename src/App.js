@@ -4,7 +4,7 @@ import Footer from "./components/footer";
 import Home from "./views/home";
 import Blog from "./views/blog";
 import NewBlogPost from "./views/newBlogPost";
-import NewAuthor from "./views/newAuthor";
+import NewAuthor from "./views/newAuthor/index.jsx";
 import { BrowserRouter, Route } from "react-router-dom";
 
 function App() {

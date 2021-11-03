@@ -15,7 +15,10 @@ export default class NewBlogPost extends Component {
     console.log(this.state);
   }
 
+  // apiUrl = "http://localhost:5000";
   apiUrl = process.env.REACT_APP_BE_URL;
+
+  //REACT_APP_BE_URL=https://striveblogbt.herokuapp.com
 
   createBlogPost = async () => {
     try {
