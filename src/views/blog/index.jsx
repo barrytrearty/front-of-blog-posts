@@ -14,10 +14,10 @@ import BlogAuthor from "../../components/blog/blog-author";
 // import posts from "../../data/posts.json";
 import "./styles.css";
 
-// const apiUrl = "http://localhost:5000";
-const apiUrl = process.env.REACT_APP_BE_URL;
+const apiUrl = "http://localhost:5000";
+// const apiUrl = process.env.REACT_APP_BE_URL;
 
-//REACT_APP_BE_URL=https://striveblogbt.herokuapp.com
+
 
 const Blog = ({ match }) => {
   const { id } = match.params;

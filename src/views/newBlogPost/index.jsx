@@ -15,10 +15,8 @@ export default class NewBlogPost extends Component {
     console.log(this.state);
   }
 
-  // apiUrl = "http://localhost:5000";
-  apiUrl = process.env.REACT_APP_BE_URL;
-
-  //REACT_APP_BE_URL=https://striveblogbt.herokuapp.com
+  apiUrl = "http://localhost:5000";
+  // apiUrl = process.env.REACT_APP_BE_URL;
 
   createBlogPost = async () => {
     try {
@@ -38,10 +36,13 @@ export default class NewBlogPost extends Component {
             avatar:
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdeN66zWGCjZ1UGlTL-QZTEI_DL5d8ccAxw&usqp=CAU",
           },
+          // author:[AUTHORID]
           content: this.state.text,
         }),
         headers: {
           "Content-Type": "application/json",
+          // Authorization:
+          // `Bearer ${AUTHORTOKEN}`,
         },
       });
       if (response.ok) {

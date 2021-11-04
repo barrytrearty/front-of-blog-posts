@@ -6,10 +6,8 @@ import BlogItem from "../blog-item";
 export default class BlogList extends Component {
   state = { posts: [] };
 
-  // apiUrl = "http://localhost:5000";
-  apiUrl = process.env.REACT_APP_BE_URL;
-
-  //REACT_APP_BE_URL=https://striveblogbt.herokuapp.com
+  apiUrl = "http://localhost:5000";
+  // apiUrl = process.env.REACT_APP_BE_URL;
 
   fetchPosts = async () => {
     try {
