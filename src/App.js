@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <Route path="/" exact component={Home} />
+      <Route path="/home" exact component={Home} />
       <Route path="/blog/:id" exact component={Blog} />
       <Route path="/register" exact component={NewAuthor} />
       <Route path="/newBlogPost" exact component={NewBlogPost} />

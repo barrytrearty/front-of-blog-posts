@@ -79,7 +79,7 @@ const NewAuthor = ({ history }) => {
     e.preventDefault();
     createAuthor();
     getAuthorList();
-    history.push("/");
+    history.push("/login");
   };
 
   // imageUpload = (e) => {
@@ -91,6 +91,11 @@ const NewAuthor = ({ history }) => {
       <Row>
         <Col className="col-9">
           <Form className="mt-5" onSubmit={sendAuthor}>
+            <a href="http://localhost:5000/authors/googleLogin">
+              <Button size="lg" variant="dark" style={{ marginLeft: "1em" }}>
+                Sign up with Google
+              </Button>
+            </a>
             <Form.Group controlId="blog-form" className="mt-3">
               <Form.Label>First name</Form.Label>
               <Form.Control
@@ -123,7 +128,6 @@ const NewAuthor = ({ history }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group className="d-flex mt-3 justify-content-end">
               <Button type="reset" size="lg" variant="outline-dark">
                 Reset

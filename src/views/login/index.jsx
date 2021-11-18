@@ -25,9 +25,11 @@ const Login = ({ history }) => {
         },
       });
       if (response.ok) {
-        console.log(response.json());
-        // let tokenObj = response.json()
-        // setAuthorToken(tokenObj.accessToken)
+        // console.log(response.json());
+        let tokenObj = await response.json();
+        console.log(tokenObj);
+        localStorage.setItem("accessToken", tokenObj.accessToken);
+        history.push("/home");
       }
     } catch (error) {
       console.log(error);
@@ -37,7 +39,6 @@ const Login = ({ history }) => {
   const sendAuthor = (e) => {
     e.preventDefault();
     loginAuthor();
-    history.push("/");
   };
 
   return (
@@ -45,6 +46,11 @@ const Login = ({ history }) => {
       <Row>
         <Col>
           <Form className="mt-5" onSubmit={sendAuthor}>
+            <a href="http://localhost:5000/authors/googleLogin">
+              <Button size="lg" variant="dark" style={{ marginLeft: "1em" }}>
+                Log in with Google
+              </Button>
+            </a>
             <Form.Group controlId="blog-form" className="mt-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -62,7 +68,7 @@ const Login = ({ history }) => {
               />
             </Form.Group>
 
-            <Form.Group className="d-flex mt-3 justify-content-end">
+            <Form.Group className="d-flex mt-3 justify-content-between">
               <Button
                 type="submit"
                 size="lg"

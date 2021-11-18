@@ -1,40 +1,51 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import BlogItem from "../blog-item";
-// import posts from "../../../data/posts.json";
+import { withRouter } from "react-router";
 
-export default class BlogList extends Component {
-  state = { posts: [] };
+const BlogList = ({ match }) => {
+  const [posts, setPosts] = useState([]);
 
-  apiUrl = "http://localhost:5000";
+  const apiUrl = "http://localhost:5000";
   // apiUrl = process.env.REACT_APP_BE_URL;
 
-  fetchPosts = async () => {
+  const fetchPosts = async () => {
     try {
-      let response = await fetch(`${this.apiUrl}/blogPosts`);
+      const token = localStorage.getItem("accessToken");
+      let response = await fetch(`${apiUrl}/authors/me/stories`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       let postsArray = await response.json();
-      this.setState({ posts: postsArray });
+      setPosts(postsArray);
       return postsArray;
     } catch (error) {
       console.log(error);
     }
   };
 
-  componentDidMount() {
-    this.fetchPosts();
-    // fetchedPosts = fetchPosts();
-    // this.setState({ posts: fetchPosts });
-  }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paramToken = params.get("accessToken");
 
-  render() {
-    return (
-      <Row>
-        {this.state.posts.map((post) => (
-          <Col md={4} style={{ marginBottom: 50 }}>
-            <BlogItem key={post.title} {...post} />
-          </Col>
-        ))}
-      </Row>
-    );
-  }
-}
+    if (paramToken) {
+      localStorage.setItem("accessToken", paramToken);
+    }
+    fetchPosts();
+  }, []);
+
+  return (
+    <Row>
+      {posts.map((post) => (
+        <Col md={4} style={{ marginBottom: 50 }}>
+          <BlogItem key={post.title} {...post} />
+        </Col>
+      ))}
+    </Row>
+  );
+};
+
+export default withRouter(BlogList);

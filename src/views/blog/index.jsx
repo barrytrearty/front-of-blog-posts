@@ -15,9 +15,6 @@ import BlogAuthor from "../../components/blog/blog-author";
 import "./styles.css";
 
 const apiUrl = "http://localhost:5000";
-// const apiUrl = process.env.REACT_APP_BE_URL;
-
-
 
 const Blog = ({ match }) => {
   const { id } = match.params;
@@ -28,9 +25,6 @@ const Blog = ({ match }) => {
   const [file, setFile] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState({ text: "", userName: "" });
-
-  // const formData = new FormData();
-  // formData.append("photo", file);
 
   const fetchPosts = async (id) => {
     try {
@@ -57,18 +51,7 @@ const Blog = ({ match }) => {
     }
   };
 
-  // const downloadPdf = async () => {
-  //   try {
-  //     let response = await fetch(`${apiUrl}/blogPosts/${id}/PDFDownload`);
-  //     console.log(response);
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
-    // const { id } = match.params;
     console.log(id);
     fetchPosts(id);
     fetchComments(id);
@@ -88,7 +71,6 @@ const Blog = ({ match }) => {
           body: fileFormData,
         });
         fetchPosts(id);
-        // console.log(fileFormData.blogPostCover);
       } catch (error) {
         console.log(error);
       }
@@ -98,10 +80,6 @@ const Blog = ({ match }) => {
     setOpen(false);
   };
 
-  // const { loading, blog } = state;
-  // if (loading) {
-  //   return <div>loading</div>;
-  // } else {
   return (
     <div className="blog-details-root">
       <Container>
@@ -116,7 +94,6 @@ const Blog = ({ match }) => {
               </div>
               <div className="blog-details-info">
                 <div>{blog.createdAt}</div>
-                {/* <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div> */}
               </div>
             </div>
 
@@ -135,15 +112,6 @@ const Blog = ({ match }) => {
                 here
               </a>
             </div>
-            {/* <Button
-              onClick={() => downloadPdf()}
-              size="lg"
-              variant="dark"
-              style={{ margin: "1em" }}
-            >
-              {" "}
-              Download PDF
-            </Button> */}
           </Col>
           <Col className="col-3">
             <div className="mt-5">
@@ -223,7 +191,5 @@ const Blog = ({ match }) => {
     </div>
   );
 };
-//   }
-//
 
 export default withRouter(Blog);
